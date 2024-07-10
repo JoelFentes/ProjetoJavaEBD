@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Professor {
-    private static int proximoId = 1;
+    private static int proximoId = 0;
     private int id;
     private String nome;
     private String cpf;
@@ -56,31 +56,40 @@ public class Professor {
     public void cadastrarSala(Scanner scanner) {
         System.out.println("\n------------ Cadastro de Sala ------------\n");
 
-        System.out.print("Nome da Sala:");
+        System.out.print("Nome da Sala: ");
         String descricao = scanner.nextLine();
 
         List<String> nomesProfessores = carregarNomesProfessores();
         String professorResponsavel = null;
 
         while (professorResponsavel == null) {
-            System.out.print("Professor Responsável:");
+            System.out.print("Professor Responsável: ");
             professorResponsavel = scanner.nextLine();
 
             if (!nomesProfessores.contains(professorResponsavel)) {
-                System.out.println("Professor não encontrado no banco de dados. Digite um nome válido.");
+                System.out.println("\nProfessor não encontrado no banco de dados. Digite um nome válido.\n");
                 professorResponsavel = null;
             }
         }
 
-        Sala sala = new Sala(proximoId++, descricao, professorResponsavel);
-        sala.salvarEmArquivo();
+        System.out.print("Idade de Entrada: ");
+        int idadeMinima = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha pendente
 
-        System.out.println(String.format("\n------------ Sala cadastrada com sucesso: ------------\nID: %d\nDescrição: %s\nProfessor Responsável: %s", sala.getId(), sala.getDescricao(), professorResponsavel));
+        System.out.print("Idade Limite: ");
+        int idadeMaxima = scanner.nextInt();
+        scanner.nextLine(); // Consumir a quebra de linha pendente
+
+        Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
+        sala.salvarEmArquivo(); // Salva a sala no arquivo BD_SALAS.txt
+
+        System.out.println(String.format("\n------------ Sala cadastrada com sucesso ------------\nID: %d\nDescrição: %s\nProfessor Responsável: %s\nIdade de Entrada: %d\nIdade Limite: %d", sala.getId(), sala.getDescricao(), professorResponsavel, sala.getIdadeMinima(), sala.getIdadeMaxima()));
     }
+
 
     public static List<String> carregarNomesProfessores() {
         List<String> nomesProfessores = new ArrayList<>();
-        String fileName = "C:\\Users\\joelf\\eclipse-workspace\\BD_USER.txt";
+        String fileName = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -109,4 +118,8 @@ public class Professor {
         aluno.salvarEmArquivo();
         System.out.println("Aluno cadastrado com sucesso: " + aluno.getMatricula() + " - " + aluno.getNome());
     }
+
+
+
+
 }

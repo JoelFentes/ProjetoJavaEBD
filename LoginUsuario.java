@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class LoginUsuario {
-    private static final String bdUser = "C:\\Users\\joelf\\eclipse-workspace\\BD_USER.txt";
+    private static final String bdUser = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
     private static final ArrayList<String> loggedInUser = new ArrayList<>();
     private static Professor loggedInProfessor = null;
 
@@ -82,15 +82,19 @@ public class LoginUsuario {
                     	System.out.println("Produção...");
                         break;
                     case 0:
-                        System.out.println("Saindo...");
+                        System.out.println("Obrigado por usar o sistema EBD!");
                         flag = false;
+                        return;
+
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
+                        break;
                 }
 
              }
         } else {
             System.out.println("Nenhum usuário logado.");
+
         }
         
         scanner.close();
