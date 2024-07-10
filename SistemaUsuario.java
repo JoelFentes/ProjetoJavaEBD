@@ -11,7 +11,7 @@ public class SistemaUsuario {
         Scanner scanner = new Scanner(System.in);
 
         while (flag) {
-            System.out.printf("\t\t------- Seja Bem-vindo ao App de Gestão EBD!------- \n%d - Criar Conta\n%d - Já possui uma conta? Fazer Login\n%d - Sair%n", 1, 2, 3);
+            System.out.printf("\n\t\t------- Seja Bem-vindo ao App de Gestão EBD!------- \n%d - Criar Conta\n%d - Já possui uma conta? Fazer Login\n%d - Sair%n", 1, 2, 3);
 
             int choice = scanner.nextInt();
             scanner.nextLine(); 
@@ -36,12 +36,10 @@ public class SistemaUsuario {
                     flag = false;
                     return;
                 default:
+                    System.out.print("Opção inválida, Tente um valor válido.");
+                    break;
 
-                    System.out.println("Opção inválida. Tente novamente.");
             }
-
-            System.out.println("\nPressione Enter para continuar...");
-            scanner.nextLine();
         }
     }
 }

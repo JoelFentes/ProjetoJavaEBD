@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 
 public class RegistrarUsuario {
-    private static final String bdUser = "C:\\Users\\joelf\\eclipse-workspace\\BD_USER.txt";
+    private static final String bdUser = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
     private static int id = 0; //
 
     
@@ -28,7 +28,6 @@ public class RegistrarUsuario {
     
     
     public static void registerUser(Scanner scanner) {
-
         System.out.print("Nome: ");
         String nome = scanner.nextLine();
         
