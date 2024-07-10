@@ -4,6 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Aluno {
+    private String tste;
     private static int proximaMatricula = 1; 
     private int matricula;
     private int idProfessor;
