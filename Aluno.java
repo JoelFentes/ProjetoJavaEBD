@@ -67,7 +67,7 @@ public class Aluno {
     public void salvarEmArquivo() {
         String fileName = "C:\\Users\\joelf\\eclipse-workspace\\BD_ALUNOS.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-            writer.println(idProfessor + ";" + matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno);
+            writer.println(idProfessor + ";" + matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno );
         } catch (IOException e) {
             System.out.println("Erro ao salvar o aluno em arquivo.");
         }
