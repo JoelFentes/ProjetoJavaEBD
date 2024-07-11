@@ -1,2 +1,3 @@
 1;Teste;Joel;1;12
 2;Teste2;Joserlan;10;20
+3;;Joel;12;20

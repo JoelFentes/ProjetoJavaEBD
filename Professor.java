@@ -72,16 +72,31 @@ public class Professor {
             }
         }
 
-        System.out.print("Idade de Entrada: ");
-        int idadeMinima = scanner.nextInt();
-        scanner.nextLine(); // Consumir a quebra de linha pendente
+        int idadeMinima = 0;
+        do {
+            System.out.print("Idade de Entrada: ");
+            idadeMinima = scanner.nextInt();
+            scanner.nextLine();
 
-        System.out.print("Idade Limite: ");
-        int idadeMaxima = scanner.nextInt();
-        scanner.nextLine(); // Consumir a quebra de linha pendente
+            if (idadeMinima < 0) {
+                System.out.println("Idade de entrada não pode ser menor que 0. Digite novamente.");
+            }
+        } while (idadeMinima < 0);
+
+        int idadeMaxima = 0;
+        do {
+            System.out.print("Idade Limite: ");
+            idadeMaxima = scanner.nextInt();
+            scanner.nextLine();
+
+            if (idadeMaxima < idadeMinima) {
+                System.out.println("Idade limite não pode ser menor que a idade de entrada. Digite novamente.");
+            }
+        } while (idadeMaxima < idadeMinima);
+
 
         Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
-        sala.salvarEmArquivo(); // Salva a sala no arquivo BD_SALAS.txt
+        sala.salvarEmArquivo();
 
         System.out.println(String.format("\n------------ Sala cadastrada com sucesso ------------\nID: %d\nDescrição: %s\nProfessor Responsável: %s\nIdade de Entrada: %d\nIdade Limite: %d", sala.getId(), sala.getDescricao(), professorResponsavel, sala.getIdadeMinima(), sala.getIdadeMaxima()));
     }
@@ -114,9 +129,19 @@ public class Professor {
         System.out.print("CPF do Aluno: ");
         String cpf = scanner.nextLine();
 
-        Aluno aluno = new Aluno(id, nome, cpf);
+        System.out.print("Whatsapp ou Número para contato: ");
+        String contato = scanner.nextLine();
+
+        System.out.print("Idade: ");
+        int idade = scanner.nextInt();
+
+        System.out.print("Sala: ");
+        String salaAluno = scanner.nextLine();
+
+        Aluno aluno = new Aluno(id, nome, cpf, contato, idade, salaAluno);
         aluno.salvarEmArquivo();
-        System.out.println("Aluno cadastrado com sucesso: " + aluno.getMatricula() + " - " + aluno.getNome());
+
+        System.out.println(String.format("\n------------ Aluno cadastrado com sucesso ------------\nMatrícula: %d\nNome: %s\nSala: %s", aluno.getMatricula(), aluno.getNome(), aluno.getSalaAluno()));
     }
 
 
