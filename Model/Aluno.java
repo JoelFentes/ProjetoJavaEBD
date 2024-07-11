@@ -1,22 +1,20 @@
-package Main;
+package Main.Model;
+
 
 import java.io.*;
 import java.util.*;
 
 public class Aluno {
-    private static int proximaMatricula = 1; 
+    private static int proximaMatricula = 1;
     private int matricula;
-    private int idProfessor;
     private String nome;
     private String cpf;
     private int idade;
     private String contato;
     private String salaAluno;
 
-
-    public Aluno(int idProfessor, String nome, String cpf, String contato, int idade, String salaAluno) {
+    public Aluno(String nome, String cpf, String contato, int idade, String salaAluno) {
         this.matricula = proximaMatricula++;
-        this.idProfessor = idProfessor;
         this.nome = nome;
         this.cpf = cpf;
         this.contato = contato;
@@ -24,20 +22,14 @@ public class Aluno {
         this.salaAluno = salaAluno;
     }
 
+    // Getters
+
     public String getSalaAluno() {
         return salaAluno;
     }
 
     public int getMatricula() {
         return matricula;
-    }
-
-    public int getIdProfessor() {
-        return idProfessor;
-    }
-
-    public void setIdProfessor(int idProfessor) {
-        this.idProfessor = idProfessor;
     }
 
     public String getNome() {
@@ -64,14 +56,12 @@ public class Aluno {
         return contato;
     }
 
-    public void salvarEmArquivo() {
-        String fileName = "C:\\Users\\joelf\\eclipse-workspace\\BD_ALUNOS.txt";
+ /*  public void salvarEmArquivo() {
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-            writer.println(idProfessor + ";" + matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno );
+            writer.println( matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno);
         } catch (IOException e) {
             System.out.println("Erro ao salvar o aluno em arquivo.");
         }
-    }
-
-
+    }*/
 }

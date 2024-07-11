@@ -1,3 +1,4 @@
+/*
 package Main;
 
 import java.io.BufferedWriter;
@@ -9,7 +10,8 @@ import java.util.Scanner;
 
 
 public class RegistrarUsuario {
-    private static final String bdUser = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
+    private static final String bdUser = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
+    ;
     private static int id = 0; //
 
     
@@ -73,3 +75,4 @@ public class RegistrarUsuario {
         
     }
 }
+*/

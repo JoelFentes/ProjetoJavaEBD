@@ -1,18 +1,12 @@
-package Main;
+package Main.Model;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Sala {
-    private static final String ARQUIVO_BANCO_DE_DADOS = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
-
-    private static int proximoId = lerUltimoID(); // Inicializa com o último ID lido do banco de dados
-
+    private static final String bdSalas = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+    private static int proximoId = lerUltimoID();
     private int id;
     private String descricao;
     private String professorResponsavel;
@@ -20,12 +14,14 @@ public class Sala {
     private int idadeMaxima;
 
     public Sala(String descricao, String professorResponsavel, int idadeMinima, int idadeMaxima) {
-        this.id = proximoId++; // Usa o próximo ID disponível e depois incrementa
+        this.id = proximoId++;
         this.descricao = descricao;
         this.professorResponsavel = professorResponsavel;
         this.idadeMinima = idadeMinima;
         this.idadeMaxima = idadeMaxima;
     }
+
+    // Getters
 
     public int getId() {
         return id;
@@ -48,7 +44,7 @@ public class Sala {
     }
 
     public void salvarEmArquivo() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(ARQUIVO_BANCO_DE_DADOS, true))) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(bdSalas, true))) {
             writer.println(id + ";" + descricao + ";" + professorResponsavel + ";" + idadeMinima + ";" + idadeMaxima);
         } catch (IOException e) {
             System.out.println("Erro ao salvar a sala em arquivo.");
@@ -57,20 +53,15 @@ public class Sala {
 
     private static int lerUltimoID() {
         int ultimoID = 0;
-
-        try (BufferedReader br = new BufferedReader(new FileReader(ARQUIVO_BANCO_DE_DADOS))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(bdSalas))) {
             String linha;
             while ((linha = br.readLine()) != null) {
-                String[] dados = linha.split(";");
-                ultimoID = Integer.parseInt(dados[0]);
+                String[] data = linha.split(";");
+                ultimoID = Integer.parseInt(data[0]);
             }
         } catch (IOException | NumberFormatException e) {
-            // Em caso de erro ao ler o arquivo ou converter o ID, retorna 0
             System.out.println("Erro ao ler o último ID do banco de dados das salas.");
         }
-
-        return ultimoID + 1; // Retorna o próximo ID disponível
+        return ultimoID + 1;
     }
-
-
 }

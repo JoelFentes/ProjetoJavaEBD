@@ -1,10 +1,13 @@
+/*
 package Main;
+
+import Main.Model.Professor;
 
 import java.io.*;
 import java.util.*;
 
 public class LoginUsuario {
-    private static final String bdUser = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
+    private static final String bdUser = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_USER.txt";
     private static final ArrayList<String> loggedInUser = new ArrayList<>();
     private static Professor loggedInProfessor = null;
 
@@ -20,7 +23,7 @@ public class LoginUsuario {
 
             while ((line = reader.readLine()) != null) {
                 String[] userData = line.split(";");
-                if ((userData[1].equals(user) || userData[2].equals(user)) && userData[3].equals(password)) {
+                if ((userData[1].equals(user) || userData[2].equalsIgnoreCase(user)) && userData[3].equals(password)) {
                     String welcomeMessage = String.format("\nLogin bem-sucedido! Bem-vindo Professor %s!", userData[2]);
                     System.out.println(welcomeMessage);
 
@@ -39,10 +42,15 @@ public class LoginUsuario {
             }
 
             if (!loginSuccess) {
-                System.out.println("\nUsuário ou senha incorretos.");
+                System.out.println("\nUsuário ou senha incorretos. Tente novamente");
+
+                loginUser(scanner);
+
             }
+
         } catch (IOException e) {
             System.out.println("Erro ao ler os dados dos usuários.");
+
         }
     }
 
@@ -83,6 +91,7 @@ public class LoginUsuario {
                         break;
                     case 0:
                         System.out.println("Obrigado por usar o sistema EBD!");
+                        loggedInUser.clear();
                         flag = false;
                         return;
 
@@ -100,3 +109,4 @@ public class LoginUsuario {
         scanner.close();
     }
 }
+*/
