@@ -20,7 +20,6 @@ public class Main {
         ProfessorController professorController = new ProfessorController(professores, salas, alunos, professorView);
         MainView mainView = new MainView(professorController);
 
-        // Mostra o menu principal da aplicação
         mainView.showMenu();
     }
 }
