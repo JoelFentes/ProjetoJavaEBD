@@ -35,11 +35,11 @@ public class Sala {
         return professorResponsavel;
     }
 
-    public int getIdadeMinima() {
+    public int getIdadeMinimaSala() {
         return idadeMinima;
     }
 
-    public int getIdadeMaxima() {
+    public int getIdadeMaximaSala() {
         return idadeMaxima;
     }
 

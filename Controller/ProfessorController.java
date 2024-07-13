@@ -1,128 +1,125 @@
 package Main.Controller;
 
-import Main.Model.Aluno;
 import Main.Model.Professor;
-import Main.Model.Sala;
 import Main.View.ProfessorView;
+import Main.View.SalaView;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class ProfessorController {
     private List<Professor> professores;
-    private List<Sala> salas;
-    private List<Aluno> alunos;
-    private ProfessorView view;
+    private ProfessorView professorview;
+    private int proximoIdProfessor;
 
-    public ProfessorController(List<Professor> professores, List<Sala> salas, List<Aluno> alunos, ProfessorView view) {
+
+    public ProfessorController(List<Professor> professores, ProfessorView professorview ) {
         this.professores = professores;
-        this.salas = salas;
-        this.alunos = alunos;
-        this.view = view;
+        this.professorview = professorview;
+        this.proximoIdProfessor = 1; // Inicializa com 1 ou o valor adequado conforme sua lógica
+        carregarProfessoresDoArquivo();
+
     }
 
-    public void cadastrarSala() {
-        view.showSalaCadastro();
+    Scanner scanner = new Scanner(System.in);
 
-        String descricao = view.getDescricaoSala();
-        List<String> nomesProfessores = carregarNomesProfessores();
-        String professorResponsavel = view.getProfessorResponsavel(nomesProfessores);
-        int idadeMinima = view.getIdadeMinima();
-        int idadeMaxima = view.getIdadeMaxima(idadeMinima);
+    public void showProfessorOptions() {
+        boolean loggedIn = true;
+        while (loggedIn) {
+            System.out.printf(
+                    "\n------------ Escolha uma opção ------------\n" +
+                            "%d - Gerir Salas\n" +
+                            "%d - Gerir Alunos\n" +
+                            "%d - Gerir Aulas\n" +
+                            "%d - Sair%n",
+                    1, 2, 3, 0
+            );
 
-        Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
-        salas.add(sala); // Adiciona a sala à lista de salas
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consumir a quebra de linha após o nextInt()
 
-        salvarSalasNoArquivo(); // Salva as salas no arquivo
-
-        view.showSalaCadastroSucesso(sala);
-    }
-
-    public void cadastrarAluno() {
-        view.showAlunoCadastro();
-
-        String nome = view.getNomeAluno();
-        String cpf = view.getCpfAluno();
-        String contato = view.getContatoAluno();
-        int idade = view.getIdadeAluno();
-        String salaAluno = view.getSalaAluno();
-
-
-        Aluno aluno = new Aluno(nome, cpf, contato, idade, salaAluno);
-        alunos.add(aluno);
-
-        salvarAlunosNoArquivo();
-        view.showAlunoCadastroSucesso(aluno);
+            switch (choice) {
+                case 1:
+                    SalaController.showSalaOptions();
+                    break;
+                case 2:
+                    //
+                    break;
+                case 3:
+                    System.out.println("Em desenvolvimento...");
+                    break;
+                case 0:
+                    System.out.println("Obrigado por usar o sistema EBD!");
+                    loggedIn = false;
+                    break;
+                default:
+                    System.out.println("Opção inválida. Tente novamente.");
+                    break;
+            }
+        }
     }
 
     public boolean loginUser(String nome, String senha) {
-        for (Professor professor : professores) {
-            if (professor.getNome().equalsIgnoreCase(nome) && professor.getSenha().equals(senha)) {
-                return true;
-            }
-        }
-        return false;
+        return professores.stream()
+                .anyMatch(professor -> professor.getNomeProfessor().equalsIgnoreCase(nome) && professor.getSenhaProfessor().equals(senha));
     }
 
     public void registerUser(String nome, String cpf, String senha) {
-        Professor professor = new Professor(professores.size() + 1, nome, cpf, senha);
+        Professor professor = new Professor(proximoIdProfessor, nome, cpf, senha);
         professores.add(professor);
-        salvarProfessoresNoArquivo();
-        System.out.println("Usuário cadastrado com sucesso!");
+        salvarProfessoresNoArquivo(); // Salva os professores no arquivo
+        proximoIdProfessor++; // Incrementa o próximo ID disponível
     }
 
-    private void salvarSalasNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Sala sala : salas) {
-                String salaData = String.format("%s;%s;%d;%d", sala.getDescricao(), sala.getProfessorResponsavel(),
-                        sala.getIdadeMinima(), sala.getIdadeMaxima());
-                writer.write(salaData);
-                writer.newLine();
-            }
-            System.out.println("Sala cadastrada com sucesso!");
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar os dados das salas.");
-        }
-    }
 
-    private void salvarAlunosNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
-            for (Aluno aluno : alunos) {
-                String alunoData = String.format("%s;%s;%s;%d;%s", aluno.getNome(), aluno.getCpf(),
-                        aluno.getContato(), aluno.getIdade(), aluno.getSalaAluno());
-                writer.write(alunoData);
-                writer.newLine();
+    private void carregarProfessoresDoArquivo() {
+        String fileName = "C:\\Users\\hfent\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] dados = line.split(";");
+                if (dados.length == 4) {
+                    int id = Integer.parseInt(dados[0].trim());
+                    String nome = dados[1].trim();
+                    String cpf = dados[2].trim();
+                    String senha = dados[3].trim();
+
+                    Professor professor = new Professor(id, nome, cpf, senha);
+
+                    // Atualizar o contador de ID se necessário
+                    if (id >= proximoIdProfessor) {
+                        proximoIdProfessor = id + 1;
+                    }
+                }
             }
-            System.out.println("Aluno cadastrado com sucesso!");
         } catch (IOException e) {
-            System.out.println("Erro ao salvar os dados dos alunos.");
+            System.out.println("Erro ao carregar os dados dos professores.");
         }
     }
 
     private void salvarProfessoresNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        String fileName = "C:\\Users\\hfent\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Professor professor : professores) {
-                String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNome(), professor.getCpf(),
-                        professor.getSenha());
+                String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNomeProfessor(), professor.getCpfProfessor(),
+                        professor.getSenhaProfessor());
                 writer.write(professorData);
                 writer.newLine();
             }
-            System.out.println("Professor cadastrado com sucesso!");
+            System.out.println("Professores cadastrados com sucesso!");
         } catch (IOException e) {
             System.out.println("Erro ao salvar os dados dos professores.");
         }
     }
 
-    private List<String> carregarNomesProfessores() {
+
+    public List<String> carregarNomesProfessores() {
         List<String> nomesProfessores = new ArrayList<>();
         for (Professor professor : professores) {
-            nomesProfessores.add(professor.getNome());
+            nomesProfessores.add(professor.getNomeProfessor());
         }
         return nomesProfessores;
     }
