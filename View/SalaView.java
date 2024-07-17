@@ -1,6 +1,5 @@
 package Main.View;
 
-import Main.Controller.SalaController;
 import Main.Model.Sala;
 
 import java.util.Scanner;
@@ -54,6 +53,21 @@ public class SalaView {
         System.out.println(String.format("\n------------ Sala cadastrada com sucesso ------------\nID: %d\nDescrição: %s\nIdade de Entrada: %d\nIdade Limite: %d",
                 sala.getId(), sala.getDescricao(), sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala()));
     }
+
+    public static void showSalaAlteracao(Sala sala) {
+        if (sala != null) {
+            System.out.println(String.format("\n------------ Sala encontrada ------------\nID: %d\nDescrição: %s\nProfessor Responsável: %s\nIdade de Entrada: %d\nIdade Limite: %d",
+                    sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(), sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala()));
+        } else {
+            System.out.println("Sala não encontrada para alteração.");
+        }
+    }
+
+    public static void showSalaDelecaoConfirmacao(String descricaoSala) {
+        System.out.printf("Tem certeza que deseja deletar a sala '%s'? (S/N): ", descricaoSala);
+    }
+
+
 
     public void closeScanner() {
         scanner.close();

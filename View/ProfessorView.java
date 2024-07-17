@@ -43,7 +43,7 @@ public class ProfessorView {
     }
 
     public static boolean cpfDisponivel(String cpf) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\hfent\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(";");

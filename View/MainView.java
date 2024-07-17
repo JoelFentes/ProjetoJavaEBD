@@ -55,9 +55,9 @@ public class MainView {
     private void loginUser() {
         System.out.println("------------ Login de Usuário ------------");
         System.out.print("Nome: ");
-        String nome = scanner.nextLine();
+        String nome = scanner.nextLine().trim();
         System.out.print("Senha: ");
-        String senha = scanner.nextLine();
+        String senha = scanner.nextLine().trim();
 
         boolean loginSuccess = professorController.loginUser(nome, senha);
 

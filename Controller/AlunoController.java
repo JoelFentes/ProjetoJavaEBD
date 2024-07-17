@@ -34,7 +34,7 @@ public class AlunoController {
     }
 
     private void salvarAlunosNoArquivo() {
-        String fileName = "C:\\Users\\hfent\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Aluno aluno : alunos) {
                 String alunoData = String.format("%s;%s;%s;%d;%s", aluno.getNome(), aluno.getCpf(),

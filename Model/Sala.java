@@ -1,8 +1,6 @@
 package Main.Model;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Sala {
     private static final String bdSalas = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
@@ -21,7 +19,7 @@ public class Sala {
         this.idadeMaxima = idadeMaxima;
     }
 
-    // Getters
+    // Getters and setters
 
     public int getId() {
         return id;
@@ -31,16 +29,32 @@ public class Sala {
         return descricao;
     }
 
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public String getProfessorResponsavel() {
         return professorResponsavel;
+    }
+
+    public void setProfessorResponsavel(String professorResponsavel) {
+        this.professorResponsavel = professorResponsavel;
     }
 
     public int getIdadeMinimaSala() {
         return idadeMinima;
     }
 
+    public void setIdadeMinimaSala(int idadeMinima) {
+        this.idadeMinima = idadeMinima;
+    }
+
     public int getIdadeMaximaSala() {
         return idadeMaxima;
+    }
+
+    public void setIdadeMaximaSala(int idadeMaxima) {
+        this.idadeMaxima = idadeMaxima;
     }
 
     public void salvarEmArquivo() {
@@ -63,5 +77,9 @@ public class Sala {
             System.out.println("Erro ao ler o último ID do banco de dados das salas.");
         }
         return ultimoID + 1;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
