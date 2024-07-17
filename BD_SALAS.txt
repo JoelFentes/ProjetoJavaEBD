@@ -1,2 +1,2 @@
-1;T;Joel;1;2
-2;T2;Joel;1;2
+1;Firmes na Fé;Joel;12;20
+2;Irmãos em Cristo;Joel;20;60

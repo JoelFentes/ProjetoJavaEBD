@@ -44,7 +44,7 @@ public class AlunoView {
     }
 
     public static boolean cpfDisponivel(String cpf) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(";");

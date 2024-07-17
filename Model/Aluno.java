@@ -56,7 +56,7 @@ public class Aluno {
         return contato;
     }
 
- /*  public void salvarEmArquivo() {
+    /*public void salvarEmArquivo() {
         String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
             writer.println( matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno);

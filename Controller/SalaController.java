@@ -17,8 +17,8 @@ public class SalaController {
         SalaController.salas = salas;
         SalaController.professorController = professorController;
         SalaController.salaview = salaview;
-        carregarSalasDoArquivo();
     }
+
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void showSalaOptions() {
@@ -44,7 +44,7 @@ public class SalaController {
                     alterarSala();
                     break;
                 case 3:
-                    deletarSala();
+                    // Implementar método deletarSala se necessário
                     break;
                 case 0:
                     System.out.println("Obrigado por usar o sistema EBD!");
@@ -61,9 +61,9 @@ public class SalaController {
         SalaView.showSalaCadastro();
 
         String descricao = salaview.getDescricaoSala();
-
         String professorResponsavel;
         List<String> nomesProfessores = professorController.carregarNomesProfessores();
+
         do {
             professorResponsavel = salaview.getProfessorResponsavel();
             if (!nomesProfessores.contains(professorResponsavel)) {
@@ -76,116 +76,107 @@ public class SalaController {
 
         Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
         salas.add(sala);
-        salvarSalasNoArquivo();
+        salvarSalasNoArquivo(salas); // Salvar a lista atualizada
 
         salaview.showSalaCadastroSucesso(sala);
         System.out.println("Sala salva com sucesso!");
     }
 
+    public static void ListarSalas() {
+        System.out.println("\n----------- Lista de Salas -----------");
 
-    public static void alterarSala() {
-        System.out.print("Digite o nome da sala que deseja alterar: ");
-        String nomeSala = scanner.nextLine();
-
-        Sala salaEncontrada = null;
+        List<Sala> salas = carregarSalasDoArquivo();
+        if (salas.isEmpty()) {
+            System.out.println("Nenhuma sala encontrada.");
+            return;
+        }
         for (Sala sala : salas) {
-            if (sala.getDescricao().equalsIgnoreCase(nomeSala)) {
-                salaEncontrada = sala;
+            System.out.println(sala);
+        }
+    }
+
+    // Método para alterar sala
+    public static void alterarSala() {
+        List<Sala> salas = carregarSalasDoArquivo();
+
+        if (salas.isEmpty()) {
+            System.out.println("Nenhuma sala encontrada para alteração.");
+            return;
+        }
+
+        // Listar salas
+        ListarSalas();
+
+        // Solicitar ID da sala a ser alterada
+        System.out.print("Informe o ID da sala que deseja alterar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine(); // Consumir nova linha
+
+        Sala salaSelecionada = null;
+        for (Sala sala : salas) {
+            if (sala.getId() == id) {
+                salaSelecionada = sala;
                 break;
             }
         }
 
-        if (salaEncontrada != null) {
-            SalaView.showSalaAlteracao(salaEncontrada); // Mostra os detalhes da sala encontrada
+        if (salaSelecionada == null) {
+            System.out.println("Sala com ID " + id + " não encontrada.");
+            return;
+        }
 
-            System.out.println("\n------------ Escolha o que deseja alterar ------------\n" +
-                    "1 - Descrição\n" +
-                    "2 - Professor Responsável\n" +
-                    "3 - Idade de Entrada\n" +
-                    "4 - Idade Limite\n" +
-                    "0 - Cancelar");
+        boolean flag = true;
+        while (flag) {
+            System.out.printf(
+                    "\n------------ O que deseja alterar ------------\n" +
+                            "1 - Descrição\n" +
+                            "2 - Professor responsável\n" +
+                            "3 - Idade mínima\n" +
+                            "4 - Idade máxima\n" +
+                            "5 - Sair\n" +
+                            "Escolha uma opção: "
+            );
 
             int opcao = scanner.nextInt();
             scanner.nextLine();
 
             switch (opcao) {
                 case 1:
-                    System.out.print("Nova descrição: ");
-                    String novaDescricao = scanner.nextLine();
-                    salaEncontrada.setDescricao(novaDescricao);
+                    System.out.print("Novo nome da sala: ");
+                    String novoNome = scanner.nextLine();
+                    salaSelecionada.setDescricao(novoNome);
                     break;
                 case 2:
-                    List<String> nomesProfessores = professorController.carregarNomesProfessores();
-                    String novoProfessor;
-                    do {
-                        System.out.print("Novo professor responsável: ");
-                        novoProfessor = scanner.nextLine();
-                        if (!nomesProfessores.contains(novoProfessor)) {
-                            System.out.println("Professor não encontrado. Por favor, insira um nome válido.");
-                        }
-                    } while (!nomesProfessores.contains(novoProfessor));
-                    salaEncontrada.setProfessorResponsavel(novoProfessor);
+                    System.out.print("Novo professor responsável: ");
+                    String novoProfessor = scanner.nextLine();
+                    salaSelecionada.setProfessorResponsavel(novoProfessor);
                     break;
                 case 3:
-                    int novaIdadeMinima = salaview.getIdadeMinimaSala();
-                    salaEncontrada.setIdadeMinimaSala(novaIdadeMinima);
-                    int novaIdadeMaxima = salaview.getIdadeMaximaSala(novaIdadeMinima);
-                    salaEncontrada.setIdadeMaximaSala(novaIdadeMaxima);
+                    System.out.print("Nova idade mínima: ");
+                    int novaIdadeMinima = scanner.nextInt();
+                    scanner.nextLine();
+                    salaSelecionada.setIdadeMinimaSala(novaIdadeMinima);
                     break;
                 case 4:
-                    novaIdadeMaxima = salaview.getIdadeMaximaSala(salaEncontrada.getIdadeMinimaSala());
-                    salaEncontrada.setIdadeMaximaSala(novaIdadeMaxima);
+                    System.out.print("Nova idade máxima: ");
+                    int novaIdadeMaxima = scanner.nextInt();
+                    scanner.nextLine();
+                    salaSelecionada.setIdadeMaximaSala(novaIdadeMaxima);
                     break;
-                case 0:
-                    System.out.println("Operação de alteração cancelada.");
+                case 5:
+
+                    salvarSalasNoArquivo(salas);
+                    flag = false;
                     break;
                 default:
-                    System.out.println("Opção inválida.");
+                    System.out.println("Opção inválida. Tente novamente.");
                     break;
             }
-
-            salvarSalasNoArquivo(); // Salva as salas atualizadas no arquivo
-
-            System.out.println("Sala alterada com sucesso!");
-        } else {
-            System.out.println("Sala não encontrada.");
         }
     }
 
-
-
-    public static void deletarSala() {
-        SalaView.showSalaDelecaoConfirmacao(salaview.getDescricaoSala());
-
-        System.out.print("Digite o nome da sala que deseja deletar: ");
-        String nomeSala = scanner.nextLine();
-
-        Sala salaEncontrada = null;
-        for (Sala sala : salas) {
-            if (sala.getDescricao().equalsIgnoreCase(nomeSala)) {
-                salaEncontrada = sala;
-                break;
-            }
-        }
-
-        if (salaEncontrada != null) {
-            salaview.showSalaDelecaoConfirmacao(salaEncontrada.getDescricao());
-            String confirmacao = scanner.nextLine().trim();
-
-            if (confirmacao.equalsIgnoreCase("S")) {
-                salas.remove(salaEncontrada);
-                salvarSalasNoArquivo(); // Salva as salas atualizadas no arquivo
-                System.out.println("Sala deletada com sucesso!");
-            } else {
-                System.out.println("Operação de deleção cancelada.");
-            }
-        } else {
-            System.out.println("Sala não encontrada.");
-        }
-    }
-
-    private static void salvarSalasNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+    private static void salvarSalasNoArquivo(List<Sala> salas) {
+        String fileName = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Sala sala : salas) {
                 String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
@@ -195,32 +186,46 @@ public class SalaController {
             }
         } catch (IOException e) {
             System.out.println("Erro ao salvar os dados das salas.");
-            e.printStackTrace(); // Mostra detalhes do erro no console para diagnóstico
+            e.printStackTrace();
         }
     }
 
+    public static List<Sala> carregarSalasDoArquivo() {
+        return carregarSalasDoArquivo("C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt");
+    }
 
-    private static List<Sala> carregarSalasDoArquivo() {
+    public static List<Sala> carregarSalasDoArquivo(String fileName) {
         List<Sala> salas = new ArrayList<>();
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String linha;
             while ((linha = br.readLine()) != null) {
                 String[] data = linha.split(";");
-                int id = Integer.parseInt(data[0]);
-                String descricao = data[1];
-                String professorResponsavel = data[2];
-                int idadeMinima = Integer.parseInt(data[3]);
-                int idadeMaxima = Integer.parseInt(data[4]);
-                Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
-                sala.setId(id);
-                salas.add(sala);
+
+                if (data.length != 5) {
+                    System.out.println("Linha inválida: " + linha);
+                    continue;
+                }
+
+                try {
+                    int id = Integer.parseInt(data[0].trim());
+                    String descricao = data[1].trim();
+                    String professorResponsavel = data[2].trim();
+                    int idadeMinima = Integer.parseInt(data[3].trim());
+                    int idadeMaxima = Integer.parseInt(data[4].trim());
+
+                    Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
+                    sala.setId(id);
+                    salas.add(sala);
+
+                } catch (NumberFormatException e) {
+                    System.out.println("Erro ao formatar os números na linha: " + linha);
+                }
             }
-        } catch (IOException | NumberFormatException e) {
-            System.out.println("Erro ao ler as salas do arquivo.");
+        } catch (IOException e) {
+            System.out.println("Erro ao ler o arquivo: " + e.getMessage());
         }
+
         return salas;
     }
-
-
 }
