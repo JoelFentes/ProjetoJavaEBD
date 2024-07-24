@@ -1,3 +1,2 @@
-1;Firmes na Fé;Joel;12;20
-2;Cordeirinhos de Cristo;Joserlan;6;12
-3;Irmãos em Cristo;Emerson;20;50
+1;Firmes na Fé;Joel;12;21
+2;Tribo de Judá;Joel;6;11

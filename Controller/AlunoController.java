@@ -30,8 +30,9 @@ public class AlunoController {
                             "%d - Cadastrar Aluno\n" +
                             "%d - Alterar Aluno\n" +
                             "%d - Listar Alunos\n" +
+                            "%d - Deletar Aluno\n" +
                             "%d - Voltar ao Menu%n",
-                    1, 2, 3, 0
+                    1, 2, 3, 4, 0
             );
 
             int choice = scanner.nextInt();
@@ -46,6 +47,9 @@ public class AlunoController {
                     break;
                 case 3:
                     listarAlunos();
+                    break;
+                case 4:
+                    deletarAluno();
                     break;
                 case 0:
                     loggedIn = false;
@@ -208,6 +212,37 @@ public class AlunoController {
         }
     }
 
+    public static void deletarAluno() {
+        List<Aluno> alunos = carregarAlunosDoArquivo();
+
+        if (alunos.isEmpty()) {
+            System.out.println("Nenhum aluno encontrado para deletar.");
+            return;
+        }
+
+        listarAlunos();
+
+        System.out.print("Informe o CPF do aluno que deseja deletar: ");
+        String cpf = scanner.nextLine();
+
+        Aluno alunoParaDeletar = null;
+        for (Aluno aluno : alunos) {
+            if (aluno.getCpf().equals(cpf)) {
+                alunoParaDeletar = aluno;
+                break;
+            }
+        }
+
+        if (alunoParaDeletar == null) {
+            System.out.println("Aluno com CPF " + cpf + " não encontrado.");
+            return;
+        }
+
+        alunos.remove(alunoParaDeletar);
+        salvarAlunosNoArquivoSobrescrever(alunos);
+        System.out.println("Aluno deletado com sucesso!");
+    }
+
     public static List<Aluno> carregarAlunosPorSala(Sala sala) {
         List<Aluno> alunosPorSala = new ArrayList<>();
         String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"; // Caminho do arquivo
@@ -239,7 +274,6 @@ public class AlunoController {
 
         return alunosPorSala;
     }
-
 
     private static boolean isCpfExistente(String cpf) {
         List<Aluno> alunos = carregarAlunosDoArquivo();

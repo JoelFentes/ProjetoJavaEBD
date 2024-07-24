@@ -28,9 +28,10 @@ public class SalaController {
                     "\n------------ Escolha uma opção ------------\n" +
                             "%d - Cadastrar Salas\n" +
                             "%d - Alterar Salas\n" +
+                            "%d - Listar Salas\n" +
                             "%d - Deletar Salas\n" +
                             "%d - Voltar ao Menu%n",
-                    1, 2, 3, 0
+                    1, 2, 3, 4, 0
             );
 
             int choice = scanner.nextInt();
@@ -44,7 +45,11 @@ public class SalaController {
                     alterarSala();
                     break;
                 case 3:
-                    // Implementar método deletarSala se necessário
+                    listarSalas();
+
+                    break;
+                case 4:
+                    deletarSala();
                     break;
                 case 0:
                     loggedIn = false;
@@ -55,6 +60,7 @@ public class SalaController {
             }
         }
     }
+
 
     public static void cadastrarSala() {
         SalaView.showSalaCadastro();
@@ -81,7 +87,7 @@ public class SalaController {
         System.out.println("Sala salva com sucesso!");
     }
 
-    public static void ListarSalas() {
+    public static void listarSalas() {
         System.out.println("\n----------- Lista de Salas -----------");
 
         List<Sala> salas = carregarSalasDoArquivo();
@@ -104,7 +110,7 @@ public class SalaController {
         }
 
         // Listar salas
-        ListarSalas();
+        listarSalas();
 
         // Solicitar ID da sala a ser alterada
         System.out.print("Informe o ID da sala que deseja alterar: ");
@@ -163,8 +169,7 @@ public class SalaController {
                     salaSelecionada.setIdadeMaximaSala(novaIdadeMaxima);
                     break;
                 case 5:
-
-                    salvarSalasNoArquivo(salas);
+                    salvarSalasNoArquivoSobrescrever(salas);
                     flag = false;
                     break;
                 default:
@@ -174,9 +179,62 @@ public class SalaController {
         }
     }
 
+    public static void deletarSala() {
+        List<Sala> salas = carregarSalasDoArquivo();
+
+        if (salas.isEmpty()) {
+            System.out.println("Nenhuma sala encontrada para exclusão.");
+            return;
+        }
+
+        // Listar salas
+        System.out.println("\n----------- Lista de Salas -----------");
+        for (Sala sala : salas) {
+            System.out.printf("ID: %d, Descrição: %s%n", sala.getId(), sala.getDescricao());
+        }
+
+        // Solicitar ID da sala a ser deletada
+        System.out.print("Informe o ID da sala que deseja deletar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Sala salaParaDeletar = null;
+        for (Sala sala : salas) {
+            if (sala.getId() == id) {
+                salaParaDeletar = sala;
+                break;
+            }
+        }
+
+        if (salaParaDeletar == null) {
+            System.out.println("Sala com ID " + id + " não encontrada.");
+            return;
+        }
+
+        salas.remove(salaParaDeletar);
+        salvarSalasNoArquivoSobrescrever(salas);
+        System.out.println("Sala deletada com sucesso!");
+    }
+
+
     private static void salvarSalasNoArquivo(List<Sala> salas) {
         String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            for (Sala sala : salas) {
+                String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
+                        sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala());
+                writer.write(salaData);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.out.println("Erro ao salvar os dados das salas.");
+            e.printStackTrace();
+        }
+    }
+
+    private static void salvarSalasNoArquivoSobrescrever(List<Sala> salas) {
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
             for (Sala sala : salas) {
                 String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
                         sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala());

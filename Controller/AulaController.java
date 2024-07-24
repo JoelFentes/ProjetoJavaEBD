@@ -20,7 +20,6 @@ public class AulaController {
         AulaController.aulaView = aulaView;
     }
 
-
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void showAulaOptions() {
@@ -32,8 +31,9 @@ public class AulaController {
                             "%d - Alterar Aulas\n" +
                             "%d - Listar Aulas\n" +
                             "%d - Adicionar Presença\n" +
+                            "%d - Deletar Aula\n" +
                             "%d - Voltar ao Menu%n",
-                    1, 2, 3, 4, 0
+                    1, 2, 3, 4, 5, 0
             );
 
             int choice = scanner.nextInt();
@@ -51,6 +51,9 @@ public class AulaController {
                     break;
                 case 4:
                     adicionarPresenca();
+                    break;
+                case 5:
+                    deletarAula();
                     break;
                 case 0:
                     loggedIn = false;
@@ -96,21 +99,18 @@ public class AulaController {
             }
         } while (sala == null);
 
-        // Obtendo a oferta diretamente como float
         float oferta = aulaView.getOfertaAula();
 
-        // Adicionando um mapa de presenças vazio para a nova aula
         Map<String, Boolean> presencas = new HashMap<>();
 
         Aula aula = new Aula(descricao, data, professorResponsavel, sala, oferta, presencas);
-        aula.setId(novoId); // Definir o novo ID
+        aula.setId(novoId);
         aulas.add(aula);
         salvarAulasNoArquivo(aulas);
 
         aulaView.showAulaCadastroSucesso(aula);
         System.out.println("Aula salva com sucesso!");
     }
-
 
     public static void listarAulas() {
         System.out.println("\n----------- Lista de Aulas -----------");
@@ -144,12 +144,9 @@ public class AulaController {
         for (Aula aula : aulas) {
             if (aula.getId() == id) {
                 aulaSelecionada = aula;
-
                 break;
             }
         }
-
-        System.out.print(aulaSelecionada);
 
         if (aulaSelecionada == null) {
             System.out.println("Aula com ID " + id + " não encontrada.");
@@ -207,7 +204,7 @@ public class AulaController {
                             System.out.println("Sala não encontrada. Por favor, insira um nome válido.");
                         }
                     } while (novaSala == null);
-                    aulaSelecionada.setSala(novaSala); // Atualiza o objeto Sala
+                    aulaSelecionada.setSala(novaSala);
                     break;
                 case 5:
                     flag = false;
@@ -223,14 +220,14 @@ public class AulaController {
     }
 
     public static void adicionarPresenca() {
-        List<Aula> aulas = carregarAulasDoArquivo(); // Certifique-se de carregar a lista de aulas corretamente
+        List<Aula> aulas = carregarAulasDoArquivo();
 
         if (aulas.isEmpty()) {
             System.out.println("Nenhuma aula encontrada.");
             return;
         }
 
-        listarAulas(); // Exibindo a lista de aulas para o usuário
+        listarAulas();
 
         System.out.print("Informe o ID da aula para adicionar/atualizar presença: ");
         int id = scanner.nextInt();
@@ -285,10 +282,41 @@ public class AulaController {
             }
         }
 
-        salvarAulasNoArquivoSobrescrever(aulasAtualizadas); // Use o método correto para salvar
+        salvarAulasNoArquivoSobrescrever(aulasAtualizadas);
         System.out.println("Presença adicionada/atualizada com sucesso!");
     }
 
+    public static void deletarAula() {
+        List<Aula> aulas = carregarAulasDoArquivo();
+
+        if (aulas.isEmpty()) {
+            System.out.println("Nenhuma aula encontrada para deletar.");
+            return;
+        }
+
+        listarAulas();
+
+        System.out.print("Informe o ID da aula que deseja deletar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Aula aulaParaDeletar = null;
+        for (Aula aula : aulas) {
+            if (aula.getId() == id) {
+                aulaParaDeletar = aula;
+                break;
+            }
+        }
+
+        if (aulaParaDeletar == null) {
+            System.out.println("Aula com ID " + id + " não encontrada.");
+            return;
+        }
+
+        aulas.remove(aulaParaDeletar);
+        salvarAulasNoArquivoSobrescrever(aulas);
+        System.out.println("Aula deletada com sucesso!");
+    }
 
     private static int obterUltimoId() {
         int ultimoId = 0;
@@ -332,7 +360,7 @@ public class AulaController {
                 String data = parts[2];
                 String professorResponsavel = parts[3];
                 String salaDescricao = parts[4];
-                float oferta = Float.parseFloat(parts[5].replace(',', '.')); // Converte a String em float
+                float oferta = Float.parseFloat(parts[5].replace(',', '.'));
 
                 Map<String, Boolean> presencas = new HashMap<>();
                 if (parts.length > 6 && !parts[6].isEmpty()) {
@@ -365,7 +393,6 @@ public class AulaController {
 
         return aulas;
     }
-
 
     private static void salvarAulasNoArquivo(List<Aula> aulas) {
         String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";

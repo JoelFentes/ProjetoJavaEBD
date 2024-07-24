@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static Main.Controller.DespesaController.despesas;
+import static Main.Controller.ReceitaController.receitas;
+
+
 public class ProfessorController {
     private static List<Professor> professores;
     private ProfessorView professorview;
@@ -27,11 +31,17 @@ public class ProfessorController {
         while (loggedIn) {
             System.out.printf(
                     "\n------------ Escolha uma opção ------------\n" +
+                            "\n------- Gestão EBD -------\n" +
                             "%d - Gerir Salas\n" +
                             "%d - Gerir Alunos\n" +
                             "%d - Gerir Aulas\n" +
+                            "\n------- Secretaria -------\n" +
+                            "%d - Gerir Despesas\n" +
+                            "%d - Gerir Receitas\n" +
+                            "%d - Gerar Relatório\n" +
+                            "%d - Excluir Conta\n" +
                             "%d - Sair%n",
-                    1, 2, 3, 0
+                    1, 2, 3, 4, 5, 6, 7, 0
             );
 
             int choice = scanner.nextInt();
@@ -47,6 +57,18 @@ public class ProfessorController {
                 case 3:
                     AulaController.showAulaOptions();
                     break;
+                case 4:
+                    DespesaController.showDespesaOptions();
+                    break;
+                case 5:
+                    ReceitaController.showReceitaOptions();
+                    break;
+                case 6:
+                    RelatorioFinanceiroController.gerarRelatorio(receitas, despesas);
+                    break;
+                case 7:
+                    deletarProfessor();
+                    break;
                 case 0:
                     loggedIn = false;
                     break;
@@ -56,6 +78,8 @@ public class ProfessorController {
             }
         }
     }
+
+
 
     public static boolean loginUser(String nome, String senha) {
        for (Professor professor : professores) {
@@ -72,6 +96,50 @@ public class ProfessorController {
         salvarProfessoresNoArquivo(); // Salva os professores no arquivo
         proximoIdProfessor++; // Incrementa o próximo ID disponível
     }
+
+    public void deletarProfessor() {
+        if (professores.isEmpty()) {
+            System.out.println("Nenhum professor encontrado para deletar.");
+            return;
+        }
+
+        // Listar professores
+        System.out.println("\n----------- Lista de Professores -----------");
+        for (Professor professor : professores) {
+            System.out.printf("ID: %d, Nome: %s%n", professor.getId(), professor.getNomeProfessor());
+        }
+
+        System.out.print("Informe o ID do professor que deseja deletar: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        Professor professorParaDeletar = null;
+        for (Professor professor : professores) {
+            if (professor.getId() == id) {
+                professorParaDeletar = professor;
+                break;
+            }
+        }
+
+        if (professorParaDeletar == null) {
+            System.out.println("Professor com ID " + id + " não encontrado.");
+            return;
+        }
+
+        System.out.print("Informe a senha do professor: ");
+        String senha = scanner.nextLine();
+
+        if (!professorParaDeletar.getSenhaProfessor().equals(senha)) {
+            System.out.println("Senha incorreta. Operação cancelada.");
+            return;
+        }
+
+        professores.remove(professorParaDeletar);
+        salvarProfessoresNoArquivo();
+        System.out.println("Professor deletado com sucesso!");
+    }
+
+
 
     private void carregarProfessoresDoArquivo() {
         String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";

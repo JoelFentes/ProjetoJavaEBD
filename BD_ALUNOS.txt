@@ -1,3 +1,1 @@
-12345678900;Fábil;13;Firmes na Fé;12;12
-12345678901;José;7;Cordeirinhos de Cristo;12345;Rua ali de cima
-12345678902;Abraão;21;Irmãos em Cristo;123456789;Rua ali de baixo
+12345678900;Fentes;12;Firmes na Fé;1234;Rua Clemente de Arruda, 153

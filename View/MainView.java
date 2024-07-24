@@ -2,23 +2,43 @@ package Main.View;
 
 import Main.Controller.ProfessorController;
 import Main.Controller.SalaController;
-import Main.View.ProfessorView;
-import Main.View.SalaView;
+import Main.Controller.RelatorioFinanceiroController;
+import Main.Controller.AlunoController;
+import Main.Controller.AulaController;
+import Main.Controller.ReceitaController;
+import Main.Controller.DespesaController;
 
 import java.util.Scanner;
 
 public class MainView {
-    private ProfessorController professorController;
-    private ProfessorView professorView;
-    private Scanner scanner;
 
-    public MainView(ProfessorView professorView, ProfessorController professorController, SalaController salaController) {
+    private final ProfessorView professorView;
+    private final ProfessorController professorController;
+    private final SalaController salaController;
+    private final AlunoController alunoController;
+    private final AulaController aulaController;
+    private final ReceitaController receitaController;
+    private final DespesaController despesaController;
+    private final RelatorioFinanceiroController relatorioController;
+    private final Scanner scanner;
+
+    // Atualize o construtor para aceitar todos os controladores e views necessários
+    public MainView(ProfessorView professorView, ProfessorController professorController,
+                    SalaController salaController, AlunoController alunoController,
+                    AulaController aulaController, ReceitaController receitaController,
+                    DespesaController despesaController, RelatorioFinanceiroController relatorioController) {
         this.professorView = professorView;
         this.professorController = professorController;
+        this.salaController = salaController;
+        this.alunoController = alunoController;
+        this.aulaController = aulaController;
+        this.receitaController = receitaController;
+        this.despesaController = despesaController;
+        this.relatorioController = relatorioController;
         this.scanner = new Scanner(System.in);
     }
 
-    public void showMenu() {
+public void showMenu() {
         boolean running = true;
         while (running) {
             System.out.printf("\n\t\t------- Seja Bem-vindo ao App de Gestão EBD!------- \n%d - Criar Conta\n%d - Já possui uma conta? Fazer Login\n%d - Sair%n", 1, 2, 3);
