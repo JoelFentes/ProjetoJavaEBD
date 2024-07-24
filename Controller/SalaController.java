@@ -47,7 +47,6 @@ public class SalaController {
                     // Implementar método deletarSala se necessário
                     break;
                 case 0:
-                    System.out.println("Obrigado por usar o sistema EBD!");
                     loggedIn = false;
                     break;
                 default:
@@ -76,7 +75,7 @@ public class SalaController {
 
         Sala sala = new Sala(descricao, professorResponsavel, idadeMinima, idadeMaxima);
         salas.add(sala);
-        salvarSalasNoArquivo(salas); // Salvar a lista atualizada
+        salvarSalasNoArquivo(salas);
 
         salaview.showSalaCadastroSucesso(sala);
         System.out.println("Sala salva com sucesso!");
@@ -176,8 +175,8 @@ public class SalaController {
     }
 
     private static void salvarSalasNoArquivo(List<Sala> salas) {
-        String fileName = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Sala sala : salas) {
                 String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
                         sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala());
@@ -191,7 +190,7 @@ public class SalaController {
     }
 
     public static List<Sala> carregarSalasDoArquivo() {
-        return carregarSalasDoArquivo("C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt");
+        return carregarSalasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt");
     }
 
     public static List<Sala> carregarSalasDoArquivo(String fileName) {

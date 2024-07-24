@@ -1,35 +1,30 @@
 package Main.Model;
 
-
-import java.io.*;
-import java.util.*;
-
 public class Aluno {
-    private static int proximaMatricula = 1;
-    private int matricula;
-    private String nome;
     private String cpf;
+    private String nome;
     private int idade;
+    private Sala sala;
     private String contato;
-    private String salaAluno;
+    private String endereco;
 
-    public Aluno(String nome, String cpf, String contato, int idade, String salaAluno) {
-        this.matricula = proximaMatricula++;
-        this.nome = nome;
+    // Construtor
+    public Aluno(String cpf, String nome, int idade, Sala sala, String contato, String endereco) {
         this.cpf = cpf;
-        this.contato = contato;
+        this.nome = nome;
         this.idade = idade;
-        this.salaAluno = salaAluno;
+        this.sala = sala;
+        this.contato = contato;
+        this.endereco = endereco;
     }
 
-    // Getters
-
-    public String getSalaAluno() {
-        return salaAluno;
+    // Getters e Setters
+    public String getCpf() {
+        return cpf;
     }
 
-    public int getMatricula() {
-        return matricula;
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getNome() {
@@ -40,28 +35,41 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public int getIdade() {
         return idade;
+    }
+
+    public void setIdade(int idade) {
+        this.idade = idade;
+    }
+
+    public Sala getSala() {
+        return sala;
+    }
+
+    public void setSala(Sala sala) {
+        this.sala = sala;
     }
 
     public String getContato() {
         return contato;
     }
 
-    /*public void salvarEmArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
-        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
-            writer.println( matricula + ";" + nome + ";" + cpf + ";" + idade + ";" + contato + ";" + salaAluno);
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar o aluno em arquivo.");
-        }
-    }*/
+    public void setContato(String contato) {
+        this.contato = contato;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("CPF: %s, Nome: %s, Idade: %d, Sala: %s, Contato: %s, Endereço: %s",
+                cpf, nome, idade, sala.getDescricao(), contato, endereco);
+    }
 }

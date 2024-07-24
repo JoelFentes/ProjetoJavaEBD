@@ -3,7 +3,7 @@ package Main.Model;
 import java.io.*;
 
 public class Sala {
-    private static final String bdSalas = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+    private static final String bdSalas = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
     private static int proximoId = lerUltimoID();
     private int id;
     private String descricao;

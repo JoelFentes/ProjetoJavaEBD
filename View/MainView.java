@@ -33,6 +33,7 @@ public class MainView {
                     loginUser();
                     break;
                 case 3:
+                    System.out.println("Obrigado por usar o sistema EBD!");
                     running = false;
                     break;
                 default:

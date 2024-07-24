@@ -43,7 +43,7 @@ public class ProfessorView {
     }
 
     public static boolean cpfDisponivel(String cpf) {
-        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt"))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(";");
@@ -63,7 +63,17 @@ public class ProfessorView {
     }
 
     public String getNomeProfessor() {
-        System.out.print("Nome: ");
-        return scanner.nextLine();
+        String nome;
+        while (true) {
+            System.out.print("Nome: ");
+            nome = scanner.nextLine().trim();
+
+            if (nome.matches("[a-zA-Z\\p{L} \\-'’]+")) {
+                break;
+            } else {
+                System.out.println("Nome inválido. Por favor, insira apenas letras e espaços.");
+            }
+        }
+        return nome;
     }
 }

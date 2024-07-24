@@ -35,17 +35,17 @@ public class ProfessorController {
             );
 
             int choice = scanner.nextInt();
-            scanner.nextLine(); // Consumir a quebra de linha após o nextInt()
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
                     SalaController.showSalaOptions();
                     break;
                 case 2:
-                    System.out.println("Em desenvolvimento...");
+                    AlunoController.showAlunoOptions();
                     break;
                 case 3:
-                    System.out.println("Em desenvolvimento...");
+                    AulaController.showAulaOptions();
                     break;
                 case 0:
                     loggedIn = false;
@@ -74,7 +74,7 @@ public class ProfessorController {
     }
 
     private void carregarProfessoresDoArquivo() {
-        String fileName = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -100,7 +100,7 @@ public class ProfessorController {
     }
 
     private void salvarProfessoresNoArquivo() {
-        String fileName = "C:\\Users\\UPE SURUBIM\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
             for (Professor professor : professores) {
                 String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNomeProfessor(), professor.getCpfProfessor(), professor.getSenhaProfessor());
@@ -113,7 +113,7 @@ public class ProfessorController {
         }
     }
 
-    public List<String> carregarNomesProfessores() {
+    public static List<String> carregarNomesProfessores() {
         List<String> nomesProfessores = new ArrayList<>();
         for (Professor professor : professores) {
             nomesProfessores.add(professor.getNomeProfessor());

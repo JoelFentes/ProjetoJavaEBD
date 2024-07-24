@@ -12,8 +12,19 @@ public class SalaView {
     }
 
     public String getDescricaoSala() {
-        System.out.print("Nome da Sala: ");
-        return scanner.nextLine();
+        String descricao;
+        while (true) {
+            System.out.print("Nome da Sala: ");
+            descricao = scanner.nextLine().trim();
+
+            if (descricao.matches("[a-zA-Z\\p{L} \\-'’]+")) {
+                break;
+            } else {
+                System.out.println("Nome inválido. Por favor, insira apenas letras e espaços.");
+            }
+        }
+        return descricao;
+
     }
 
     public int getIdadeMinimaSala() {
@@ -52,19 +63,6 @@ public class SalaView {
     public void showSalaCadastroSucesso(Sala sala) {
         System.out.println(String.format("\n------------ Sala cadastrada com sucesso ------------\nID: %d\nDescrição: %s\nIdade de Entrada: %d\nIdade Limite: %d",
                 sala.getId(), sala.getDescricao(), sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala()));
-    }
-
-    public static void showSalaAlteracao(Sala sala) {
-        if (sala != null) {
-            System.out.println(String.format("\n------------ Sala encontrada ------------\nID: %d\nDescrição: %s\nProfessor Responsável: %s\nIdade de Entrada: %d\nIdade Limite: %d",
-                    sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(), sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala()));
-        } else {
-            System.out.println("Sala não encontrada para alteração.");
-        }
-    }
-
-    public static void showSalaDelecaoConfirmacao(String descricaoSala) {
-        System.out.printf("Tem certeza que deseja deletar a sala '%s'? (S/N): ", descricaoSala);
     }
 
 
