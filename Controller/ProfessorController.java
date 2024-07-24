@@ -1,5 +1,6 @@
 package Main.Controller;
 
+
 import Main.Model.Professor;
 import Main.View.ProfessorView;
 
@@ -7,6 +8,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import Main.Controller.NotificacaoEventoController;
+import Main.Controller.NotificacaoAlunoController;
 
 import static Main.Controller.DespesaController.despesas;
 import static Main.Controller.ReceitaController.receitas;
@@ -26,6 +30,7 @@ public class ProfessorController {
 
     Scanner scanner = new Scanner(System.in);
 
+
     public void showProfessorOptions() {
         boolean loggedIn = true;
         while (loggedIn) {
@@ -40,8 +45,10 @@ public class ProfessorController {
                             "%d - Gerir Receitas\n" +
                             "%d - Gerar Relatório\n" +
                             "%d - Excluir Conta\n" +
+                            "%d - Enviar Notificação para Aluno\n" +
+                            "%d - Enviar Notificação de Evento\n" +
                             "%d - Sair%n",
-                    1, 2, 3, 4, 5, 6, 7, 0
+                    1, 2, 3, 4, 5, 6, 7, 8, 9, 0
             );
 
             int choice = scanner.nextInt();
@@ -68,6 +75,12 @@ public class ProfessorController {
                     break;
                 case 7:
                     deletarProfessor();
+                    break;
+                case 8:
+                    NotificacaoAlunoController.enviarNotificacao();
+                    break;
+                case 9:
+                    NotificacaoEventoController.enviarNotificacao();
                     break;
                 case 0:
                     loggedIn = false;
@@ -138,7 +151,6 @@ public class ProfessorController {
         salvarProfessoresNoArquivo();
         System.out.println("Professor deletado com sucesso!");
     }
-
 
 
     private void carregarProfessoresDoArquivo() {

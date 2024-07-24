@@ -1,32 +1,29 @@
 package Main.View;
 
-import Main.Controller.ProfessorController;
-import Main.Controller.SalaController;
-import Main.Controller.RelatorioFinanceiroController;
-import Main.Controller.AlunoController;
-import Main.Controller.AulaController;
-import Main.Controller.ReceitaController;
-import Main.Controller.DespesaController;
+import Main.Controller.*;
 
 import java.util.Scanner;
 
 public class MainView {
+    private ProfessorView professorView;
+    private ProfessorController professorController;
+    private SalaController salaController;
+    private AlunoController alunoController;
+    private AulaController aulaController;
+    private ReceitaController receitaController;
+    private DespesaController despesaController;
+    private RelatorioFinanceiroController relatorioController;
+    private NotificacaoAlunoController notificacaoAlunoController;
+    private NotificacaoEventoController notificacaoEventoController;
 
-    private final ProfessorView professorView;
-    private final ProfessorController professorController;
-    private final SalaController salaController;
-    private final AlunoController alunoController;
-    private final AulaController aulaController;
-    private final ReceitaController receitaController;
-    private final DespesaController despesaController;
-    private final RelatorioFinanceiroController relatorioController;
-    private final Scanner scanner;
+    private Scanner scanner = new Scanner(System.in);
 
-    // Atualize o construtor para aceitar todos os controladores e views necessários
     public MainView(ProfessorView professorView, ProfessorController professorController,
                     SalaController salaController, AlunoController alunoController,
                     AulaController aulaController, ReceitaController receitaController,
-                    DespesaController despesaController, RelatorioFinanceiroController relatorioController) {
+                    DespesaController despesaController, RelatorioFinanceiroController relatorioController,
+                    NotificacaoAlunoController notificacaoAlunoController,
+                    NotificacaoEventoController notificacaoEventoController) {
         this.professorView = professorView;
         this.professorController = professorController;
         this.salaController = salaController;
@@ -35,10 +32,12 @@ public class MainView {
         this.receitaController = receitaController;
         this.despesaController = despesaController;
         this.relatorioController = relatorioController;
-        this.scanner = new Scanner(System.in);
+        this.notificacaoAlunoController = notificacaoAlunoController;
+        this.notificacaoEventoController = notificacaoEventoController;
     }
 
-public void showMenu() {
+
+    public void showMenu() {
         boolean running = true;
         while (running) {
             System.out.printf("\n\t\t------- Seja Bem-vindo ao App de Gestão EBD!------- \n%d - Criar Conta\n%d - Já possui uma conta? Fazer Login\n%d - Sair%n", 1, 2, 3);

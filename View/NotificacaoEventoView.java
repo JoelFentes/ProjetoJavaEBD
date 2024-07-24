@@ -27,9 +27,9 @@ public class NotificacaoEventoView {
         return scanner.nextLine().trim();
     }
 
-    public int getProfessorId() {
-        System.out.print("ID do Professor: ");
-        return scanner.nextInt();
+    public String getNomeProfessor() {
+        System.out.print("Nome do Professor: ");
+        return scanner.nextLine().trim();
     }
 
     public void closeScanner() {

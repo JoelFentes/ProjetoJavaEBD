@@ -10,11 +10,10 @@ public interface Comunicacao {
 	String getMensagem();
 	void setMensagem(String mensagem);
 
-	int getProfessorId();
-	void setProfessorId(int professorId);
+	String getProfessorNome();
+	void setProfessorNome(String nomeProfessor);
 
-	void setComunicacao(int id, String data, String mensagem, int professorId);
+	// Métodos sobrecarregados
+	void setComunicacao(int id, String data, String mensagem, String nomeProfessor);
 	void setComunicacao(String data, String mensagem);
-
-
 }

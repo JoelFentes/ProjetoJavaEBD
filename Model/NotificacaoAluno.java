@@ -4,19 +4,15 @@ public class NotificacaoAluno implements Comunicacao {
     private int id;
     private String data;
     private String mensagem;
-    private int professorId;
+    private String nomeProfessor;
     private String alunoNome;
 
-    public NotificacaoAluno(String alunoNome) {
-        this.alunoNome = alunoNome;
-    }
-
     @Override
-    public void setComunicacao(int id, String data, String mensagem, int professorId) {
+    public void setComunicacao(int id, String data, String mensagem, String professorId) {
         this.id = id;
         this.data = data;
         this.mensagem = mensagem;
-        this.professorId = professorId;
+        this.nomeProfessor = professorId;
     }
 
     @Override
@@ -56,31 +52,26 @@ public class NotificacaoAluno implements Comunicacao {
     }
 
     @Override
-    public int getProfessorId() {
-        return professorId;
+    public String getProfessorNome() {
+        return nomeProfessor;
     }
 
     @Override
-    public void setProfessorId(int professorId) {
-        this.professorId = professorId;
-    }
-
-    public String getAlunoNome() {
-        return alunoNome;
+    public void setProfessorNome(String nomeProfessor) {
+        this.nomeProfessor = nomeProfessor;
     }
 
     public void setAlunoNome(String alunoNome) {
         this.alunoNome = alunoNome;
     }
 
+    public String getAlunoNome() {
+        return alunoNome;
+    }
+
     @Override
     public String toString() {
-        return "NotificacaoAluno{" +
-                "id=" + id +
-                ", data='" + data + '\'' +
-                ", mensagem='" + mensagem + '\'' +
-                ", professorId=" + professorId +
-                ", alunoNome='" + alunoNome + '\'' +
-                '}';
+        return String.format("Notificação para Aluno:\nNome do Aluno: %s\nData: %s\nMensagem: %s\nNome do Professor: %s",
+                alunoNome, data, mensagem, nomeProfessor);
     }
 }
