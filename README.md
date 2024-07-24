@@ -73,3 +73,18 @@ A classe principal do projeto que inicializa e executa o sistema:
 1. **Clone o repositório:**
    ```bash
    git clone https://github.com/SEU_USUARIO/gestao-ebd.git
+
+2. **Navegue até o diretório do projeto:**
+   ```bash
+   cd gestao-ebd
+
+
+3. **Compile o projeto:**
+   ```bash
+   javac -d bin src/**/*.java
+
+4. **Execute a aplicação:**
+   ```bash
+   java -cp bin Main.Main
+
+   
