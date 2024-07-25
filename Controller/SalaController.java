@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SalaController {
-    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
     private static List<Sala> salas;
     private static ProfessorController professorController;
     private static SalaView salaview;

@@ -1,8 +1,6 @@
 package Main.Model;
 
-public class Aluno {
-    private String cpf;
-    private String nome;
+public class Aluno extends Pessoa{
     private int idade;
     private Sala sala;
     private String contato;
@@ -10,8 +8,7 @@ public class Aluno {
 
     // Construtor
     public Aluno(String cpf, String nome, int idade, Sala sala, String contato, String endereco) {
-        this.cpf = cpf;
-        this.nome = nome;
+        super(cpf, nome);
         this.idade = idade;
         this.sala = sala;
         this.contato = contato;
@@ -19,21 +16,6 @@ public class Aluno {
     }
 
     // Getters e Setters
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
 
     public int getIdade() {
         return idade;
@@ -59,6 +41,7 @@ public class Aluno {
         this.contato = contato;
     }
 
+
     public String getEndereco() {
         return endereco;
     }
@@ -67,9 +50,11 @@ public class Aluno {
         this.endereco = endereco;
     }
 
+
     @Override
     public String toString() {
-        return String.format("CPF: %s, Nome: %s, Idade: %d, Sala: %s, Contato: %s, Endereço: %s",
-                cpf, nome, idade, sala.getDescricao(), contato, endereco);
+       return String.format("CPF: %s, Nome: %s, Idade: %d, Sala: %s, Contato: %s, Endereço: %s%n",
+                getCpf(), getNome(), idade, sala.getDescricao(), contato, endereco);
     }
+
 }

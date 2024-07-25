@@ -42,12 +42,20 @@ public class AlunoView {
     }
 
     public int getIdade() {
-        System.out.print("Idade do aluno: ");
-        return Integer.parseInt(scanner.nextLine());
+        String idade;
+        while (true) {
+            System.out.print("Idade: ");
+            idade = scanner.nextLine().trim();
+            if (idade.matches("\\d+")) {
+                return Integer.parseInt(idade);
+            } else {
+                System.out.println("Idade inválida. Por favor, insira apenas números.");
+            }
+        }
     }
 
     public String getContato() {
-        System.out.print("Contato do aluno (somente números): ");
+        System.out.print("Contato do aluno: ");
         return scanner.nextLine();
     }
 
@@ -61,8 +69,10 @@ public class AlunoView {
         return scanner.nextLine();
     }
 
-    public void showCadastroSucesso(Aluno aluno) {
-        System.out.println("\nAluno cadastrado com sucesso!");
-        System.out.println(aluno);
+
+    public void ShowAlunoCadastroSucesso(Aluno aluno) {
+        System.out.println(String.format("\n------------ Aluno Cadastrado Com Sucesso ------------\nCPF: %s\nNome: %s\nIdade: %d\nSala: %s \nContato: %s \nEndereço: %s",
+                aluno.getCpf(), aluno.getNome(), aluno.getIdade(), aluno.getSala(), aluno.getContato(), aluno.getEndereco()));
     }
+
 }

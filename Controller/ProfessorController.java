@@ -17,6 +17,7 @@ import static Main.Controller.ReceitaController.receitas;
 
 
 public class ProfessorController {
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
     private static List<Professor> professores;
     private ProfessorView professorview;
     private int proximoIdProfessor;
@@ -96,7 +97,7 @@ public class ProfessorController {
 
     public static boolean loginUser(String nome, String senha) {
        for (Professor professor : professores) {
-            if (professor.getNomeProfessor().equalsIgnoreCase(nome) && professor.getSenhaProfessor().equals(senha)) {
+            if (professor.getNome().equalsIgnoreCase(nome) && professor.getSenha().equals(senha)) {
                 return true;
             }
         }
@@ -119,7 +120,7 @@ public class ProfessorController {
         // Listar professores
         System.out.println("\n----------- Lista de Professores -----------");
         for (Professor professor : professores) {
-            System.out.printf("ID: %d, Nome: %s%n", professor.getId(), professor.getNomeProfessor());
+            System.out.printf("ID: %d, Nome: %s%n", professor.getId(), professor.getNome());
         }
 
         System.out.print("Informe o ID do professor que deseja deletar: ");
@@ -142,7 +143,7 @@ public class ProfessorController {
         System.out.print("Informe a senha do professor: ");
         String senha = scanner.nextLine();
 
-        if (!professorParaDeletar.getSenhaProfessor().equals(senha)) {
+        if (!professorParaDeletar.getSenha().equals(senha)) {
             System.out.println("Senha incorreta. Operação cancelada.");
             return;
         }
@@ -154,7 +155,7 @@ public class ProfessorController {
 
 
     private void carregarProfessoresDoArquivo() {
-        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -180,10 +181,9 @@ public class ProfessorController {
     }
 
     private void salvarProfessoresNoArquivo() {
-        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
             for (Professor professor : professores) {
-                String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNomeProfessor(), professor.getCpfProfessor(), professor.getSenhaProfessor());
+                String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNome(), professor.getCpf(), professor.getSenha());
                 writer.write(professorData);
                 writer.newLine();
             }
@@ -196,7 +196,7 @@ public class ProfessorController {
     public static List<String> carregarNomesProfessores() {
         List<String> nomesProfessores = new ArrayList<>();
         for (Professor professor : professores) {
-            nomesProfessores.add(professor.getNomeProfessor());
+            nomesProfessores.add(professor.getNome());
         }
         return nomesProfessores;
     }

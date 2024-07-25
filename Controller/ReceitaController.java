@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReceitaController {
-    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_RECEITAS.txt";
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_RECEITAS.txt";
     static List<Receita> receitas;
     private static ReceitaView receitaView;
 

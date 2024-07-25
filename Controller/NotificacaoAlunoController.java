@@ -8,7 +8,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class NotificacaoAlunoController {
-    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_NOTIFICACOES.txt";
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_NOTIFICACOES.txt";
     private static NotificacaoAlunoView view;
     private static NotificacaoAluno model;
 

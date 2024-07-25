@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AulaController {
-    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
     private static List<Aula> aulas;
     private static SalaController salaController;
     private static AulaView aulaView;

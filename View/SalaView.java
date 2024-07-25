@@ -27,37 +27,46 @@ public class SalaView {
 
     }
 
-    public int getIdadeMinimaSala() {
-        int idadeMinima;
-        do {
+    public static int getIdadeMinimaSala() {
+        while (true) {
             System.out.print("Idade de Entrada: ");
-            idadeMinima = scanner.nextInt();
-            scanner.nextLine();
+            String idade = scanner.nextLine().trim();
 
-            if (idadeMinima < 0) {
-                System.out.println("Idade de entrada não pode ser menor que 0. Digite novamente.");
+            if (idade.matches("\\d+")) {
+                int idadeMinima = Integer.parseInt(idade);
+                if (idadeMinima >= 0) {
+                    return idadeMinima;
+                } else {
+                    System.out.println("Idade de entrada não pode ser menor que 0. Digite novamente.");
+                }
+            } else {
+                System.out.println("Entrada inválida. Por favor, insira apenas números.");
             }
-        } while (idadeMinima < 0);
-        return idadeMinima;
+        }
     }
+
 
     public String getProfessorResponsavel() {
         System.out.print("Professor Responsável: ");
         return scanner.nextLine();
     }
 
-    public int getIdadeMaximaSala(int idadeMinima) {
-        int idadeMaxima;
-        do {
+    public static int getIdadeMaximaSala(int idadeMinima) {
+        while (true) {
             System.out.print("Idade Limite: ");
-            idadeMaxima = scanner.nextInt();
-            scanner.nextLine();
+            String idade = scanner.nextLine().trim();
 
-            if (idadeMaxima < idadeMinima) {
-                System.out.println("Idade limite não pode ser menor que a idade de entrada. Digite novamente.");
+            if (idade.matches("\\d+")) {
+                int idadeMaxima = Integer.parseInt(idade);
+                if (idadeMaxima >= idadeMinima) {
+                    return idadeMaxima;
+                } else {
+                    System.out.println("Idade limite não pode ser menor que a idade de entrada. Digite novamente.");
+                }
+            } else {
+                System.out.println("Entrada inválida. Por favor, insira apenas números.");
             }
-        } while (idadeMaxima < idadeMinima);
-        return idadeMaxima;
+        }
     }
 
     public void showSalaCadastroSucesso(Sala sala) {

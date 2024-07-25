@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AlunoController {
-    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"; // Caminho do arquivo
+    private static final String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"; // Caminho do arquivo
 
     private static List<Aluno> alunos = new ArrayList<>();
     private static SalaController salaController;
@@ -64,46 +64,52 @@ public class AlunoController {
     }
 
     public static void cadastrarAluno() {
-        alunoView.showAlunoCadastro();
+        AlunoView.showAlunoCadastro();
 
-        String cpf = alunoView.getCpf();
-        if (isCpfExistente(cpf)) {
-            System.out.println("CPF já cadastrado. Por favor, insira um CPF diferente.");
-            return;
-        }
+        String cpf;
+        do {
+            cpf = alunoView.getCpf();
+            if (isCpfExistente(cpf)) {
+                System.out.println("CPF já cadastrado. Por favor, insira um CPF válido.");
+            }
+        } while (isCpfExistente(cpf));
 
         String nome = alunoView.getNome();
-        int idade = alunoView.getIdade();
-        String nomeSala = alunoView.getSala();
-        String contato = alunoView.getContato();
-        String endereco = alunoView.getEndereco();
 
-
-        Sala sala = null;
+        int idade;
+        Sala sala;
         List<Sala> salas = SalaController.carregarSalasDoArquivo();
 
-        for (Sala s : salas) {
-            if (s.getDescricao().equalsIgnoreCase(nomeSala)) {
-                sala = s;
-                break;
+        String nomeSala = alunoView.getSala();
+        do {
+            idade = alunoView.getIdade();
+
+
+            sala = null;
+            for (Sala s : salas) {
+                if (s.getDescricao().equalsIgnoreCase(nomeSala)) {
+                    sala = s;
+                    break;
+                }
             }
-        }
 
-        if (sala == null) {
-            System.out.println("Sala não encontrada. Por favor, insira um nome válido.");
-            return;
-        }
+            if (sala == null) {
+                System.out.println("Sala não encontrada. Por favor, insira um nome válido.");
+            } else if (idade < sala.getIdadeMinimaSala() || idade > sala.getIdadeMaximaSala()) {
+                System.out.printf("Idade do aluno não está dentro do range permitido para a sala. As idades permitidas são de %d até %d anos.%n",
+                        sala.getIdadeMinimaSala(), sala.getIdadeMaximaSala());
+            }
 
-        if (idade < sala.getIdadeMinimaSala() || idade >= sala.getIdadeMaximaSala()) {
-            System.out.println("Idade do aluno não está dentro do range permitido para a sala.");
-            return;
-        }
+        } while (sala == null || idade < sala.getIdadeMinimaSala() || idade > sala.getIdadeMaximaSala());
+
+        String contato = alunoView.getContato();
+        String endereco = alunoView.getEndereco();
 
         Aluno aluno = new Aluno(cpf, nome, idade, sala, contato, endereco);
         alunos.add(aluno);
         salvarAlunosNoArquivo(alunos);
 
-        alunoView.showCadastroSucesso(aluno);
+        alunoView.ShowAlunoCadastroSucesso(aluno);
     }
 
     public static void alterarAluno() {
@@ -246,7 +252,6 @@ public class AlunoController {
     }
 
     public static List<Aluno> carregarAlunosPorSala(Sala sala) {
-        //Lista de Alunos
         List<Aluno> alunosPorSala = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String linha;
