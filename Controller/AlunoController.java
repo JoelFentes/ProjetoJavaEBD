@@ -80,8 +80,9 @@ public class AlunoController {
         Sala sala;
         List<Sala> salas = SalaController.carregarSalasDoArquivo();
 
-        String nomeSala = alunoView.getSala();
+
         do {
+            String nomeSala = alunoView.getSala();
             idade = alunoView.getIdade();
 
 
@@ -105,7 +106,7 @@ public class AlunoController {
         String contato = alunoView.getContato();
         String endereco = alunoView.getEndereco();
 
-        Aluno aluno = new Aluno(cpf, nome, idade, sala, contato, endereco);
+        Aluno aluno = new Aluno(nome, cpf, idade, sala, contato, endereco);
         alunos.add(aluno);
         salvarAlunosNoArquivo(alunos);
 
@@ -262,14 +263,14 @@ public class AlunoController {
 
                     // Verifica se o nome da sala corresponde à sala especificada
                     if (nomeSala.equalsIgnoreCase(sala.getDescricao())) {
-                        String cpf = data[0].trim();
-                        String nome = data[1].trim();
+                        String nome = data[0].trim();
+                        String cpf = data[1].trim();
                         int idade = Integer.parseInt(data[2].trim());
                         String contato = data[4].trim();
                         String endereco = data[5].trim();
 
                         // Cria um objeto Aluno e adiciona à lista
-                        Aluno aluno = new Aluno(cpf, nome, idade, sala, contato, endereco);
+                        Aluno aluno = new Aluno(nome, cpf, idade, sala, contato, endereco);
                         alunosPorSala.add(aluno);
                     }
                 }
@@ -295,7 +296,7 @@ public class AlunoController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Aluno aluno : alunos) {
                 String alunoData = String.format("%s;%s;%d;%s;%s;%s",
-                        aluno.getCpf(), aluno.getNome(), aluno.getIdade(),
+                        aluno.getNome(), aluno.getCpf(), aluno.getIdade(),
                         aluno.getSala().getDescricao(), aluno.getContato(), aluno.getEndereco());
                 writer.write(alunoData);
                 writer.newLine();
@@ -310,7 +311,7 @@ public class AlunoController {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Aluno aluno : alunos) {
                 String alunoData = String.format("%s;%s;%d;%s;%s;%s",
-                        aluno.getCpf(), aluno.getNome(), aluno.getIdade(),
+                        aluno.getNome(), aluno.getCpf(), aluno.getIdade(),
                         aluno.getSala().getDescricao(), aluno.getContato(), aluno.getEndereco());
                 writer.write(alunoData);
                 writer.newLine();
@@ -334,8 +335,8 @@ public class AlunoController {
                 }
 
                 try {
-                    String cpf = data[0].trim();
-                    String nome = data[1].trim();
+                    String nome = data[0].trim();
+                    String cpf = data[1].trim();
                     int idade = Integer.parseInt(data[2].trim());
                     String nomeSala = data[3].trim();
                     String contato = data[4].trim();
@@ -350,7 +351,7 @@ public class AlunoController {
                     }
 
                     if (sala != null) {
-                        Aluno aluno = new Aluno(cpf, nome, idade, sala, contato, endereco);
+                        Aluno aluno = new Aluno(nome, cpf, idade, sala, contato, endereco);
                         alunos.add(aluno);
                     }
 

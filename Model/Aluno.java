@@ -7,8 +7,8 @@ public class Aluno extends Pessoa{
     private String endereco;
 
     // Construtor
-    public Aluno(String cpf, String nome, int idade, Sala sala, String contato, String endereco) {
-        super(cpf, nome);
+    public Aluno(String nome, String cpf, int idade, Sala sala, String contato, String endereco) {
+        super(nome, cpf);
         this.idade = idade;
         this.sala = sala;
         this.contato = contato;
@@ -53,8 +53,8 @@ public class Aluno extends Pessoa{
 
     @Override
     public String toString() {
-       return String.format("CPF: %s, Nome: %s, Idade: %d, Sala: %s, Contato: %s, Endereço: %s%n",
-                getCpf(), getNome(), idade, sala.getDescricao(), contato, endereco);
+       return String.format("Nome: %s, CPF: %s, Idade: %d, Sala: %s, Contato: %s, Endereço: %s%n",
+                getNome(), getCpf(), idade, sala.getDescricao(), contato, endereco);
     }
 
 }

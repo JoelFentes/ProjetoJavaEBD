@@ -1,8 +1,9 @@
 package Main.Model;
 
 public abstract class Pessoa {
-    private String nome;
     private String cpf;
+    private String nome;
+
 
     public Pessoa(String nome, String cpf) {
         this.nome = nome;
