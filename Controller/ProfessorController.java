@@ -154,7 +154,7 @@ public class ProfessorController {
 
 
     private void carregarProfessoresDoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -180,7 +180,7 @@ public class ProfessorController {
     }
 
     private void salvarProfessoresNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
+        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_PROFESSORES.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
             for (Professor professor : professores) {
                 String professorData = String.format("%d;%s;%s;%s", professor.getId(), professor.getNomeProfessor(), professor.getCpfProfessor(), professor.getSenhaProfessor());

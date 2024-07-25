@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class AlunoController {
+    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"; // Caminho do arquivo
+
     private static List<Aluno> alunos = new ArrayList<>();
     private static SalaController salaController;
     private static AlunoView alunoView;
@@ -244,9 +246,8 @@ public class AlunoController {
     }
 
     public static List<Aluno> carregarAlunosPorSala(Sala sala) {
+        //Lista de Alunos
         List<Aluno> alunosPorSala = new ArrayList<>();
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt"; // Caminho do arquivo
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String linha;
             while ((linha = br.readLine()) != null) {
@@ -286,7 +287,6 @@ public class AlunoController {
     }
 
     private static void salvarAlunosNoArquivo(List<Aluno> alunos) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Aluno aluno : alunos) {
                 String alunoData = String.format("%s;%s;%d;%s;%s;%s",
@@ -302,7 +302,6 @@ public class AlunoController {
     }
 
     private static void salvarAlunosNoArquivoSobrescrever(List<Aluno> alunos) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Aluno aluno : alunos) {
                 String alunoData = String.format("%s;%s;%d;%s;%s;%s",
@@ -319,8 +318,6 @@ public class AlunoController {
 
     public static List<Aluno> carregarAlunosDoArquivo() {
         List<Aluno> alunos = new ArrayList<>();
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_ALUNOS.txt";
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String linha;
             while ((linha = br.readLine()) != null) {

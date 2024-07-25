@@ -78,7 +78,7 @@ public class MainView {
         System.out.print("Senha: ");
         String senha = scanner.nextLine().trim();
 
-        boolean loginSuccess = professorController.loginUser(nome, senha);
+        boolean loginSuccess = ProfessorController.loginUser(nome, senha);
 
         if (loginSuccess) {
             System.out.println("Login bem-sucedido!");

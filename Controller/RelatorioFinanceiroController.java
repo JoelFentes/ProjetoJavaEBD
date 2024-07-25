@@ -59,7 +59,7 @@ public class RelatorioFinanceiroController {
     }
 
     public static void saveRelatorio(RelatorioFinanceiro relatorio) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_RELATORIO_FINANCEIRO.txt";
+        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_RELATORIO_FINANCEIRO.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             String relatorioData = String.format("%s;%s;%.2f;%.2f;%.2f",
                     relatorio.getDataInicio(), relatorio.getDataFim(),

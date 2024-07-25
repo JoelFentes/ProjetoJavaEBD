@@ -57,14 +57,6 @@ public class Sala {
         this.idadeMaxima = idadeMaxima;
     }
 
-    public void salvarEmArquivo() {
-        try (PrintWriter writer = new PrintWriter(new FileWriter(bdSalas, true))) {
-            writer.println(id + ";" + descricao + ";" + professorResponsavel + ";" + idadeMinima + ";" + idadeMaxima);
-        } catch (IOException e) {
-            System.out.println("Erro ao salvar a sala em arquivo.");
-        }
-    }
-
     private static int lerUltimoID() {
         int ultimoID = 0;
         try (BufferedReader br = new BufferedReader(new FileReader(bdSalas))) {

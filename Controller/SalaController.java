@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class SalaController {
+    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
     private static List<Sala> salas;
     private static ProfessorController professorController;
     private static SalaView salaview;
@@ -46,7 +47,6 @@ public class SalaController {
                     break;
                 case 3:
                     listarSalas();
-
                     break;
                 case 4:
                     deletarSala();
@@ -218,7 +218,6 @@ public class SalaController {
 
 
     private static void salvarSalasNoArquivo(List<Sala> salas) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Sala sala : salas) {
                 String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
@@ -233,7 +232,6 @@ public class SalaController {
     }
 
     private static void salvarSalasNoArquivoSobrescrever(List<Sala> salas) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, false))) {
             for (Sala sala : salas) {
                 String salaData = String.format("%d;%s;%s;%d;%d", sala.getId(), sala.getDescricao(), sala.getProfessorResponsavel(),
@@ -248,12 +246,12 @@ public class SalaController {
     }
 
     public static List<Sala> carregarSalasDoArquivo() {
-        return carregarSalasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_SALAS.txt");
+        return carregarSalasDoArquivo(fileName);
     }
 
     public static List<Sala> carregarSalasDoArquivo(String fileName) {
+        //ArrayList de Salas
         List<Sala> salas = new ArrayList<>();
-
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String linha;
             while ((linha = br.readLine()) != null) {

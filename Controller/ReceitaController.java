@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReceitaController {
+    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_RECEITAS.txt";
     static List<Receita> receitas;
     private static ReceitaView receitaView;
 
@@ -63,7 +64,7 @@ public class ReceitaController {
 
     public static void listarReceitas() {
         System.out.println("\n------------ Lista de Receitas ------------");
-        List<Receita> receitas = carregarReceitasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_RECEITAS.txt");
+        List<Receita> receitas = carregarReceitasDoArquivo(fileName);
         if (receitas.isEmpty()) {
             System.out.println("Nenhuma receita encontrada.");
             return;
@@ -74,13 +75,13 @@ public class ReceitaController {
     }
 
     public static List<Receita> carregarReceitasDoArquivo() {
-        return carregarReceitasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt");
+        return carregarReceitasDoArquivo(fileName);
     }
 
 
 
     public static List<Receita> carregarReceitasDoArquivo(String fileName) {
-        List<Receita> receitas = new ArrayList<>(); // Inicialize a lista aqui
+        List<Receita> receitas = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -103,7 +104,7 @@ public class ReceitaController {
 
 
     private static void salvarReceitasNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_RECEITAS.txt";
+
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Receita receita : receitas) {
                 String receitaData = String.format("%s;%s;%.2f;%s",

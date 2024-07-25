@@ -1,2 +1,1 @@
-1;Firmes na Fé;Joel;12;21
-2;Tribo de Judá;Joel;6;11
+1;Firmes na Fé;Joel;12;20

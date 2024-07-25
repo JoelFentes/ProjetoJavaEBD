@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class AulaController {
+    private static final String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
     private static List<Aula> aulas;
     private static SalaController salaController;
     private static AulaView aulaView;
@@ -320,7 +321,6 @@ public class AulaController {
 
     private static int obterUltimoId() {
         int ultimoId = 0;
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -347,7 +347,6 @@ public class AulaController {
 
     private static List<Aula> carregarAulasDoArquivo() {
         List<Aula> aulas = new ArrayList<>();
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
@@ -395,7 +394,6 @@ public class AulaController {
     }
 
     private static void salvarAulasNoArquivo(List<Aula> aulas) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Aula aula : aulas) {
                 String aulaData = String.format("%d;%s;%s;%s;%s;%.2f",
@@ -416,7 +414,6 @@ public class AulaController {
     }
 
     private static void salvarAulasNoArquivoSobrescrever(List<Aula> aulas) {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_AULAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (Aula aula : aulas) {
                 String aulaData = String.format("%d;%s;%s;%s;%s;%.2f",

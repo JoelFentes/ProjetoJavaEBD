@@ -29,7 +29,7 @@ public class NotificacaoEventoController {
     }
 
     private static void salvarNotificacaoEvento() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_NOTIFICACOES.txt";
+        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_NOTIFICACOES.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             String notificacaoData = String.format("Notificação sobre o Evento: %s\nData: %s\nMensagem: %s\nProfessor: %s\n\n",
                     model.getEventoDescricao(), model.getData(), model.getMensagem(), model.getProfessorNome());

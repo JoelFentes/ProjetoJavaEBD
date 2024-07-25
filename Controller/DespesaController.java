@@ -63,7 +63,7 @@ public class DespesaController {
 
     public static void listarDespesas() {
         System.out.println("\n------------ Lista de Despesas ------------");
-        List<Despesa> despesas = carregarDespesasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt");
+        List<Despesa> despesas = carregarDespesasDoArquivo("C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt");
         if (despesas.isEmpty()) {
             System.out.println("Nenhuma despesa encontrada.");
             return;
@@ -75,7 +75,7 @@ public class DespesaController {
 
 
     public static List<Despesa> carregarDespesasDoArquivo() {
-        return carregarDespesasDoArquivo("C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt");
+        return carregarDespesasDoArquivo("C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt");
     }
 
 
@@ -104,7 +104,7 @@ public class DespesaController {
 
 
     private static void salvarDespesasNoArquivo() {
-        String fileName = "C:\\Users\\joelf\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt";
+        String fileName = "C:\\Users\\joser\\IdeaProjects\\ProjetoJavaEBD\\BD_DESPESAS.txt";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
             for (Despesa despesa : despesas) {
                 String despesaData = String.format("%s;%s;%.2f;%s;%s",
